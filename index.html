@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <script src='http://code.jquery.com/jquery-1.8.2.min.js'></script>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.0.0/dist/phaser.min.js"></script>
+    <script src="js/game.js"></script>
+    <script src="modules/socket.io.js"></script>
+    <button id='send' onclick="myFunction(socket)">send</button>
+    <script>
+        function myFunction(socket) {
+          document.getElementById("send").style.color = "red";
+          console.log("talk");
+          socket.emit('someone talk', 'Hello Socket.IO');
+        }
+        </script>
+</body>
+<script>
+
+</script>
+
+</html>
