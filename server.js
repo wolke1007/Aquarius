@@ -37,14 +37,19 @@ function mainLogic(socket){
     io.emit('user disconnected', socket.id);
   });
 
-  //chat
+  // ====chat====
   socket.on('someone talk', function (text) {
-    singleChat = {userId : socket.id, msg: text};
+    singleChat = { 'userId': socket.id, 'msg': text };
     chatHistory.push(singleChat)
     io.emit('update chatHistory', chatHistory);
   });
-};
 
+  socket.on('clean chat', function () {
+    chatHistory = [];
+    io.emit('clean chat', chatHistory);
+  });
+  // ====chat end====
+};
 
 
 server.listen(8081, function () {
