@@ -8,9 +8,9 @@ var chatHistory = [];
 app.use(express.static(__dirname + '/public'));
  
 app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/index_aqua.html');
 });
- 
+
 io.on('connection', function (socket) {
   console.log('a user connected');
   console.log('socket.id:'+socket.id);
@@ -37,7 +37,11 @@ function mainLogic(socket){
     io.emit('user disconnected', socket.id);
   });
 
-  // ====chat====
+  // ========== chat logic start ==========
+  socket.on('request chat history', function () {
+    socket.emit('return chat history', chatHistory);
+  });
+
   socket.on('someone talk', function (text) {
     singleChat = { 'userId': socket.id, 'msg': text };
     chatHistory.push(singleChat)
@@ -48,7 +52,7 @@ function mainLogic(socket){
     chatHistory = [];
     io.emit('clean chat', chatHistory);
   });
-  // ====chat end====
+  // ========== chat logic end ==========
 };
 
 
