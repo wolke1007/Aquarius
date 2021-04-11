@@ -107,6 +107,6 @@ function updateChat(chatHistoryOnServer) {
     historyText += "</tr>"
   });
   historyDiv.innerHTML = historyText;
-  let tableElement = document.getElementById('chatHistoryTable');
+  let tableElement = document.getElementById('chatHistory');
   tableElement.scrollTop = tableElement.scrollHeight;
 }

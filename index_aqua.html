@@ -21,16 +21,75 @@
   tr:nth-child(even) {
     background-color: #dddddd;
   }
+
+  table.scroll {
+    width: 100%;
+    height:150px;
+    border-spacing: 0;
+    border: 2px solid black;
+  }
+
+  table.scroll th,
+  table.scroll td,
+  table.scroll tr,
+  table.scroll thead,
+  table.scroll tbody {
+    display: block;
+  }
+
+  table.scroll thead tr {
+    /* fallback */
+    width: 97%;
+    /* minus scroll bar width */
+    width: -webkit-calc(100% - 16px);
+    width: -moz-calc(100% - 16px);
+    width: calc(100% - 16px);
+  }
+
+  table.scroll tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+  }
+
+  table.scroll tbody {
+    height: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  table.scroll tbody td,
+  table.scroll thead th {
+    width: 19%;
+    float: left;
+    border-right: 1px solid black;
+  }
+
+  thead tr th {
+    height: 30px;
+    line-height: 30px;
+    /*text-align: left;*/
+  }
+
+  tbody {
+    border-top: 2px solid black;
+  }
+
+  tbody td:last-child,
+  thead th:last-child {
+    border-right: none !important;
+  }
 </style>
 
 <style type="text/css">
   #chatHistory {
-    font-size: 10px;
+    font-size: 14px;
   }
 </style>
 
-<body>
-  <script src='http://code.jquery.com/jquery-1.8.2.min.js'></script>
+<body id='body'>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
   <script src="//cdn.jsdelivr.net/npm/phaser@3.0.0/dist/phaser.min.js"></script>
   <script src="js/game.js"></script>
   <script src="modules/socket.io.js"></script>
@@ -42,14 +101,20 @@
     <button id='send'>send</button>
   </div>
   <div>
+    <button onclick="openFullscreen(document.getElementById('body'))">Full Screen</button>
+  </div>
+  <div>
+    <button onclick="closeFullscreen(document.getElementById('body'))">Close Full Screen</button>
+  </div>
+  <div>
     <b style='text-align:center'>Chat History</b>
     </dev>
-    <div id='chatHistoryTable' style="height:150px;overflow:auto;">
-      <table style="width: 100%">
+    <div>
+      <table class="scroll">
         <thead>
           <tr>
-            <th style="width: 20%">User</th>
-            <th style="width: 80%">Message</th>
+            <th>User</th>
+            <th>Message</th>
           </tr>
         </thead>
         <tbody id='chatHistory'>
@@ -61,10 +126,25 @@
       </table>
     </div>
     <script>
-    // function myFunction() {
-    //   console.log("talk");
-    //   socket.emit('someone talk', 'Hello Socket.IO');
-    // }
+      function openFullscreen(elem) {
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+          elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+          elem.msRequestFullscreen();
+        }
+      }
+      function closeFullscreen(elem) {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { /* Safari */
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+          document.msExitFullscreen();
+        }
+      }
+
     </script>
 </body>
 <script>
