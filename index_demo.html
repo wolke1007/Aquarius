@@ -6,9 +6,9 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 	<title>Sunny Land (Phaser Editor 2D port)</title>
-	
-	<script src="/js/modules/phaser.js"></script>
-	<script src="main.js"></script>
+
+	<script src="modules/phaser.js"></script>
+	<script src="js/main.js"></script>
 
 	<style>
 		body {
@@ -18,9 +18,31 @@
 		}
 	</style>
 
+	<script>
+		function openFullscreen(elem) {
+			if (elem.requestFullscreen) {
+				elem.requestFullscreen();
+			} else if (elem.webkitEnterFullScreen) { /* Safari */
+				elem.webkitEnterFullScreen();
+			} else if (elem.msRequestFullscreen) { /* IE11 */
+				elem.msRequestFullscreen();
+			}
+		}
+		function closeFullscreen(elem) {
+			if (document.exitFullscreen) {
+				document.exitFullscreen();
+			} else if (document.webkitExitFullscreen) { /* Safari */
+				document.webkitExitFullscreen();
+			} else if (document.msExitFullscreen) { /* IE11 */
+				document.msExitFullscreen();
+			}
+		}
+	</script>
 </head>
 
-<body>
+<body id='body'>
+	<button onclick="openFullscreen(document.getElementById('body'))">Full Screen</button>
+	<button onclick="closeFullscreen(document.getElementById('body'))">Close Full Screen</button>
 </body>
 
 </html>
